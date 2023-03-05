@@ -1,5 +1,5 @@
 # Arduino-Fish-Feeder
-Arduino implementation of automatic fih feeder.
+Arduino implementation of automatic fish feeder.
 <br>
 Arduino simulation:
 <br>
