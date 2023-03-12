@@ -12,7 +12,7 @@ const char* password = "";
 
 
 // MQTT broker credentials
-#define MQTT_SERVER "io.adafruit.com"
+#define MQTT_SERVER ""
 #define MQTT_PORT 1883
 #define MQTT_USERNAME ""
 #define MQTT_PASSWORD ""
@@ -24,11 +24,11 @@ Adafruit_MQTT_Client mqtt(&client, MQTT_SERVER, MQTT_PORT, MQTT_USERNAME, MQTT_P
 Adafruit_MQTT_Subscribe onoffbutton = Adafruit_MQTT_Subscribe(&mqtt, "amar_hasecic/feeds/buttonNahrani");
 
 
-
+int pos;
 void setup() {
-  
+ 
   Serial.begin(9600);
-  delay(10);
+  delay(11);
   Serial.println("Starting setup procedure...");
 
     WiFi.begin(ssid, password);
@@ -41,12 +41,11 @@ void setup() {
 
   // Connect to Adafruit IO MQTT server
   mqttConnect();
-  
+
   if(mqtt.subscribe(&onoffbutton) == true)
   Serial.println("Ready to receive messages");
 
-  motor.attach(9);
-
+  motor.attach(2, 500, 2500);
 }
 
 int connectionsCounter=0;
@@ -67,7 +66,15 @@ void loop() {
          if(subscription == &onoffbutton){
 
           Serial.println("Feeding time :)");
-          //motor.write(90);
+           
+          for(int i=0; i<180; i++){
+              motor.write(i); 
+              delay(10); 
+          }
+
+          delay(5000);
+          motor.write(0);
+             
          }
       
     }
